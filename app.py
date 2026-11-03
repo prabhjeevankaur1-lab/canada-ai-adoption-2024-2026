@@ -16,13 +16,13 @@ st.write(
 )
 
 # Change this path if your CSV has a different filename.
-CSV_PATH = Path("data/ai_adoption.csv")
+CSV_PATH = Path("data/processed/ai_adoption_clean_final.csv")
 
 # Load the actual dataset.
 @st.cache_data
 def load_data(path):
     df = pd.read_csv(path)
-    df.columns = df.columns.str.strip()
+    df.columns = df.columns.str.strip().str.lower()
     df["industry"] = df["industry"].astype(str).str.strip()
     return df
 
