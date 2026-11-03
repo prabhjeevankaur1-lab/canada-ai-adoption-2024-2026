@@ -260,6 +260,4 @@ st.divider()
 st.caption(
     "Portfolio project | Answers are calculated from the supplied CSV dataset."
 )
-source venv/bin/activate
 
-python -m streamlit run app.py
