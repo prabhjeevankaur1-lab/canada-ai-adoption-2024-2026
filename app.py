@@ -118,11 +118,38 @@ aggregate = df[industry_col].str.contains(
     regex=True,
     na=False
 )
-
 industry_df = df[~aggregate].copy()
+
+SECTORS = [
+    "Agriculture, forestry, fishing and hunting",
+    "Mining, quarrying, and oil and gas extraction",
+    "Utilities",
+    "Construction",
+    "Manufacturing",
+    "Wholesale trade",
+    "Retail trade",
+    "Transportation and warehousing",
+    "Information and cultural industries",
+    "Finance and insurance",
+    "Real estate and rental and leasing",
+    "Professional, scientific and technical services",
+    "Administrative and support, waste management and remediation services",
+    "Educational services",
+    "Health care and social assistance",
+    "Arts, entertainment and recreation",
+    "Accommodation and food services",
+    "Other services (except public administration)",
+]
+
+# Keep the non-sector rows (size, ownership, activity) for a separate view
+other_df = industry_df[~industry_df[industry_col].isin(SECTORS)].copy()
+
+# Main analysis uses real sectors only
+industry_df = industry_df[industry_df[industry_col].isin(SECTORS)].copy()
 
 if industry_df.empty:
     industry_df = df.copy()
+
 
 # Identify technology columns
 tech_aliases = {
